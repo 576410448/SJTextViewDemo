@@ -9,10 +9,10 @@
  
  项目截图：
  
- ![image](https://github.com/576410448/SJTextViewDemo/blob/master/SJTextViewDemo/screenshot/1.png) 
- ![image](https://github.com/576410448/SJTextViewDemo/blob/master/SJTextViewDemo/screenshot/2.png) 
- ![image](https://github.com/576410448/SJTextViewDemo/blob/master/SJTextViewDemo/screenshot/3.png)
- ![image](https://github.com/576410448/SJTextViewDemo/blob/master/SJTextViewDemo/screenshot/4.png)
+ ![image](https://github.com/576410448/SJTextViewDemo/blob/master/SJTextViewDemo/screenshot/11.png) 
+ ![image](https://github.com/576410448/SJTextViewDemo/blob/master/SJTextViewDemo/screenshot/12.png) 
+ ![image](https://github.com/576410448/SJTextViewDemo/blob/master/SJTextViewDemo/screenshot/13.png)
+ ![image](https://github.com/576410448/SJTextViewDemo/blob/master/SJTextViewDemo/screenshot/14.png)
 
 ## 关于demo
 
