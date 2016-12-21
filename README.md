@@ -1,7 +1,7 @@
 # SJTextViewDemo
  低仿简书富文本编辑与展示
  一款基于UITextView富文本编辑器
- 使用attributes 实现富文本图片／超链接等编辑处理
+ 使用attributes 实现富文本图片/超链接等编辑处理
  采用本地coredata进行数据保存
  通知的形式实现提示与刷新
  
