@@ -29,7 +29,7 @@
 
 - (void) loadSomeUseless {
     
-    NSString *str = @"关于：\n欢迎关注本人微博：http://weibo.com/u/5092390792 纯属放松娱乐的，跟开发毫无关系T-T，不过可以在工作之余聊聊天啊~\n\ndemo中用到的tabBar角标链接：https://github.com/576410448/SJNumTabDmeo\n\n欢迎关注我的Github，有帮到你的话给颗✨哦~";
+    NSString *str = @"关于：此demo仅用于初学者学习了解，实际项目富文本编辑开发最好采用html以进行各端同步\n\ndemo中用到的tabBar角标链接：https://github.com/576410448/SJNumTabDmeo\n\n欢迎关注我的Github，有帮到你的话请给颗✨哦~";
     _firstTextView.text = str;
     
 }
