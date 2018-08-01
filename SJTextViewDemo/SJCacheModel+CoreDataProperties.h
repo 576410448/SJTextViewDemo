@@ -9,7 +9,6 @@
 
 #import "SJCacheModel+CoreDataClass.h"
 
-
 NS_ASSUME_NONNULL_BEGIN
 
 @interface SJCacheModel (CoreDataProperties)

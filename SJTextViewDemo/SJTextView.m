@@ -663,7 +663,7 @@ static const void *kSJTextNextFontKey = &kSJTextNextFontKey;
     keyboardBounds = [self convertRect:keyboardBounds toView:nil];
     CGFloat keyboardH = keyboardBounds.size.height;
     
-    [self setFrame:CGRectMake(10, self.frame.origin.y, MAIN_WIDTH - 20, MAIN_HEIGHT - 64 - keyboardH - self.frame.origin.y - 50)]; // 50为工具栏高度
+    [self setFrame:CGRectMake(10, self.frame.origin.y, MAIN_WIDTH - 20, MAIN_HEIGHT - (kDevice_Is_iPhoneX?88:64) - keyboardH - self.frame.origin.y - 50)]; // 50为工具栏高度
     
     NSLog(@"keyboard show %@ %@",duration,curve);
     
@@ -683,7 +683,7 @@ static const void *kSJTextNextFontKey = &kSJTextNextFontKey;
     // Need to translate the bounds to account for rotation.
     keyboardBounds = [self convertRect:keyboardBounds toView:nil];
     
-    [self setFrame:CGRectMake(10, self.frame.origin.y, MAIN_WIDTH - 20, MAIN_HEIGHT - 64 - self.frame.origin.y)];
+    [self setFrame:CGRectMake(10, self.frame.origin.y, MAIN_WIDTH - 20, MAIN_HEIGHT - (kDevice_Is_iPhoneX?88:64) - self.frame.origin.y)];
     
     NSLog(@"keyboard show %@ %@",duration,curve);
     

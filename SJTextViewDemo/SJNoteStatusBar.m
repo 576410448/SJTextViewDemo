@@ -35,18 +35,20 @@ static SJNoteStatusBar *sjNoteStatusBar;
 
 - (void) alertWithText:(NSString *)text {
     
+    CGFloat statusBarH = kDevice_Is_iPhoneX?64:20;
+    
     // 通知 数据修改
     [[NSNotificationCenter defaultCenter] postNotificationName:kCacheDataHasChangeNote object:nil];
     
     CGFloat mainW = [UIScreen mainScreen].bounds.size.width;
     
-    _statusBar = [[UIWindow alloc] initWithFrame:CGRectMake(0, -20, mainW, 20)];
+    _statusBar = [[UIWindow alloc] initWithFrame:CGRectMake(0, -statusBarH, mainW, statusBarH)];
     _statusBar.hidden = NO;
     
-    _statusBar.backgroundColor = [UIColor clearColor];
+    _statusBar.backgroundColor = [UIColor colorWithRed:0.10f green:0.77f blue:0.31f alpha:1.00f];
     
     UIButton *statusBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    statusBtn.frame = CGRectMake(0, 0, mainW, 20);
+    statusBtn.frame = CGRectMake(0, (kDevice_Is_iPhoneX?44:0), mainW, 20);
     [_statusBar addSubview:statusBtn];
     
     statusBtn.backgroundColor = [UIColor colorWithRed:0.10f green:0.77f blue:0.31f alpha:1.00f];
@@ -59,7 +61,7 @@ static SJNoteStatusBar *sjNoteStatusBar;
     // 出现
     UIBezierPath *showPath = [[UIBezierPath alloc] init];
     [showPath moveToPoint:_statusBar.center];
-    [showPath addLineToPoint:CGPointMake(mainW/2.0, 10)];
+    [showPath addLineToPoint:CGPointMake(mainW/2.0, statusBarH/2)];
     
     CAKeyframeAnimation *showAnimation = [CAKeyframeAnimation animationWithKeyPath:@"position"];
     showAnimation.path = showPath.CGPath;
@@ -71,8 +73,8 @@ static SJNoteStatusBar *sjNoteStatusBar;
     
     // 隐藏
     UIBezierPath *hiddenPath = [[UIBezierPath alloc] init];
-    [hiddenPath moveToPoint:CGPointMake(mainW/2.0, 10)];
-    [hiddenPath addLineToPoint:CGPointMake(mainW/2.0, -10)];
+    [hiddenPath moveToPoint:CGPointMake(mainW/2.0, statusBarH/2)];
+    [hiddenPath addLineToPoint:CGPointMake(mainW/2.0, -statusBarH/2)];
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, NSEC_PER_SEC*1), dispatch_get_main_queue(), ^{
         
