@@ -35,6 +35,8 @@
 // 临时变量 存储调取的图片
 @property (nonatomic ,strong) UIImage *image;
 
+@property (nonatomic ,assign) BOOL hack_shouldIgnorePredictiveInput;
+
 @end
 
 @implementation ViewController
@@ -220,7 +222,7 @@
 
 - (void) textViewConfig {
     
-    _textView = [[SJTextView alloc] initWithFrame:CGRectMake(10, 0, MAIN_WIDTH - 20, MAIN_HEIGHT - 64) delegate:self];
+    _textView = [[SJTextView alloc] initWithFrame:CGRectMake(10, 0, MAIN_WIDTH - 20, MAIN_HEIGHT - (kDevice_Is_iPhoneX?88:64)) delegate:self];
     [self.view addSubview:_textView];
     [_textView becomeFirstResponder];
     
@@ -293,6 +295,7 @@
     
 }
 
+//static BOOL hack_shouldIgnorePredictiveInput = NO;
 #pragma mark textView Delegate
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
     
@@ -303,17 +306,68 @@
         return NO;
     }
     
-    // 键入
-    [_textView showModelWithInputText:text];
+    NSString *keyboardMode = [[textView textInputMode] primaryLanguage];
+    if ([keyboardMode isEqualToString:@"zh-Hans"]) { // 添加其他第三方键盘判断
+        
+        // 九宫格拼音输入
+        NSSet *set = [NSSet setWithObjects:@"➋",@"➌",@"➍",@"➎",@"➏",@"➐",@"➑",@"➒",nil];
+        if ([set containsObject:text]) {
+            return YES;
+        }
+        
+        // 全键盘拼音输入
+        int asciiCode = [text characterAtIndex:0]; // 65
+        if (asciiCode >= 97 && asciiCode <= 122) { // 输入为小写字母时 判断为拼音
+            return YES;
+        }
+        
+    }
     
+    
+    // 键入
+    // 九宫格中文拼音输入可行（ps：联想输入range问题 英文输入range问题 中文全键盘拼音无法输入）
+    
+    UITextRange *selectedRange = [textView markedTextRange];
+    if (selectedRange) { // 中文拼音输入完点击汉字的时候调用
+        // 九宫格
+        [_textView deleteByKeyboardWithRange:range];
+        [_textView showModelWithInputText:text];
+        
+        // 全键盘
+        
+        return NO;
+        
+    }else {
+        
+        /**
+         
+         https://stackoverflow.com/questions/26482036/why-does-shouldchangetextinrange-get-called-multiple-times-using-predictive-inpu
+         
+         I got this same issue. It appears that with predictive text, setting textView.text in that delegate method triggers an immediate call to that delegate method again (this only happens with predictive text as far as I know).
+         I fixed it by just surrounding my textView changes with a guard:
+         
+        */
+
+        
+        if (self.hack_shouldIgnorePredictiveInput) {
+            self.hack_shouldIgnorePredictiveInput = NO;
+            return NO;
+        }
+        
+        self.hack_shouldIgnorePredictiveInput = YES;
+        [_textView showModelWithInputText:text]; // Modify text however you need. This will cause shouldChangeTextInRange to be called again, but it will be ignored thanks to hack_shouldIgnorePredictiveInput
+        self.hack_shouldIgnorePredictiveInput = NO;
+        
+        return NO;
+    }
+
     return NO;
+    
 }
 
 -(void)textViewDidChangeSelection:(UITextView *)textView{
     NSLog(@"焦点改变");
-        
     [_textView alertLinkByBtnAction:NO];
-    
 }
 
 
